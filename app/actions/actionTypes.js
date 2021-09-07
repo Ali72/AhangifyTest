@@ -1,0 +1,4 @@
+export const GET_BROWSE_DATA = 'BROWSE_DATA::GET';
+export const GET_NEW_DATA = 'NEW_DATA::GET';
+export const RECEIVE_BROWSE_DATA = 'BROWSE_DATA::RECEIVE';
+export const RECEIVE_NEW_DATA = 'NEW_DATA::RECEIVE';

@@ -7,7 +7,7 @@ import {BROWSE_TAB, CHART_TAB, NEW_TAB, ARTISTS_TAB} from '../constants';
 import {selectedTab} from '../theme';
 import Browse from '../screens/Browse';
 import New from '../screens/New';
-import { View } from "react-native";
+import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
