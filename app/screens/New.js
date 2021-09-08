@@ -66,7 +66,7 @@ export class NewScreen extends React.Component {
 
   render() {
     // console.log('props=>', this.props);
-    const data = {...this.props.data};
+    const {data} = {...this.props};
     const {isLoading} = this.props;
     return (
       <View style={styles.container}>
