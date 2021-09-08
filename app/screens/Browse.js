@@ -70,7 +70,6 @@ class BrowseScreen extends React.Component {
       console.log('did focus');
       this.props.getBrowseData();
     });
-    // this.props.getBrowseData();
   }
   componentWillUnmount() {
     console.log('remove focus', this.didFocusListener);
@@ -79,13 +78,15 @@ class BrowseScreen extends React.Component {
 
   render() {
     // console.log('props=>', this.props);
+    const data = {...this.props.data};
+    const {isLoading} = this.props;
     return (
       <View style={styles.container}>
-        {this.props.data == null || this.props.isLoading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <FlatList
-            data={this.props.data.items}
+            data={data.items}
             renderItem={renderCategoryItem}
             keyExtractor={item => item.id}
           />

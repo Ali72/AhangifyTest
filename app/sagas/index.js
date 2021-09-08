@@ -6,7 +6,7 @@ import {
   RECEIVE_NEW_DATA,
 } from '../actions/actionTypes';
 import {BASE_URL} from '../constants';
-const axios = require('axios');
+import axios from 'axios';
 
 export function* getNewTracksData() {
   try {

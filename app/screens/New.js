@@ -67,13 +67,15 @@ export class NewScreen extends React.Component {
 
   render() {
     // console.log('props=>', this.props);
+    const data = {...this.props.data};
+    const {isLoading} = this.props;
     return (
       <View style={styles.container}>
-        {this.props.data == null || this.props.isLoading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <FlatList
-            data={this.props.data}
+            data={data}
             renderItem={renderCategoryItem}
             keyExtractor={item => item.id}
           />
