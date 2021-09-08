@@ -11,7 +11,7 @@ const axios = require('axios');
 export function* getNewTracksData() {
   try {
     const response = yield axios.get(BASE_URL + 'tracks');
-    console.log(response);
+    // console.log(response);
     yield put({
       type: RECEIVE_NEW_DATA,
       payload: response.data,
@@ -23,7 +23,7 @@ export function* getNewTracksData() {
 export function* getBrowseData() {
   try {
     const response = yield axios.get(BASE_URL + 'browse');
-    console.log(response);
+    // console.log(response);
     yield put({
       type: RECEIVE_BROWSE_DATA,
       payload: response.data,

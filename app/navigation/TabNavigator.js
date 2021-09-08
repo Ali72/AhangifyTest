@@ -23,22 +23,22 @@ export default function TabNavigator(props) {
         showLabel: false,
       }}>
       <Tab.Screen
-        name={BROWSE_TAB}
         options={{
           tabBarIcon: ({color, size}) => (
             <FontAwesome5 name={'th'} color={color} size={size} />
           ),
         }}
-        children={() => <Browse {...props} />}
+        name={BROWSE_TAB}
+        component={Browse}
       />
       <Tab.Screen
-        name={NEW_TAB}
         options={{
           tabBarIcon: ({color, size}) => (
             <FontAwesome5 name={'music'} color={color} size={size} />
           ),
         }}
-        children={() => <New {...props} />}
+        name={NEW_TAB}
+        component={New}
       />
       <Tab.Screen
         name={CHART_TAB}

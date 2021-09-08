@@ -11,9 +11,6 @@ import {
 import Loading from '../components/indicator';
 import {primaryColor} from '../theme';
 import {GET_BROWSE_DATA} from '../actions/actionTypes';
-import {bindActionCreators} from 'redux';
-import {getBrowseData} from '../sagas';
-// import {CTX} from '../tools/context';
 
 const SubCategoryItem = ({item, onPress}) => (
   <TouchableOpacity style={{flex: 1, padding: 4}}>
@@ -64,26 +61,31 @@ const renderCategoryItem = ({item}) => {
 class BrowseScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: props.data.data,
-      isLoading: props.data.isLoading,
-    };
   }
+
   componentDidMount() {
-    this.props.getBrowseData();
+    const {navigation} = this.props;
+    console.log('did mount');
+    this.didFocusListener = navigation.addListener('focus', () => {
+      console.log('did focus');
+      this.props.getBrowseData();
+    });
+    // this.props.getBrowseData();
+  }
+  componentWillUnmount() {
+    console.log('remove focus', this.didFocusListener);
+    this.didFocusListener.remove();
   }
 
   render() {
-    console.log('props=>', this.props);
-    console.log('state=>', this.state);
-    // this.setState({data: this.props.data.data});
+    // console.log('props=>', this.props);
     return (
       <View style={styles.container}>
-        {this.state.data == null || this.state.isLoading ? (
+        {this.props.data == null || this.props.isLoading ? (
           <Loading />
         ) : (
           <FlatList
-            data={this.state.data.items}
+            data={this.props.data.items}
             renderItem={renderCategoryItem}
             keyExtractor={item => item.id}
           />
@@ -100,8 +102,8 @@ class BrowseScreen extends React.Component {
 
 export default connect(
   state => ({
-    data: state.data,
-    isLoading: state.isLoading,
+    data: state.dataReducer.data,
+    isLoading: state.dataReducer.isLoading,
   }),
   dispatch => ({
     getBrowseData: () => dispatch({type: GET_BROWSE_DATA}),

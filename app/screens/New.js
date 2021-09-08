@@ -5,12 +5,10 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ScrollView,
   FlatList,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loading from '../components/indicator';
-const axios = require('axios');
 import {primaryColor} from '../theme';
 import {connect} from 'react-redux';
 import {GET_NEW_DATA} from '../actions/actionTypes';
@@ -52,23 +50,30 @@ const renderCategoryItem = ({item}) => {
 export class NewScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: props.data.data,
-      isLoading: props.data.isLoading,
-    };
   }
   componentDidMount() {
-    this.props.getNewData();
+    const {navigation} = this.props;
+    console.log('did mount');
+    this.didFocusListener = navigation.addListener('focus', () => {
+      console.log('did focus');
+      this.props.getNewData();
+    });
+    // this.props.getBrowseData();
+  }
+  componentWillUnmount() {
+    console.log('remove focus', this.didFocusListener);
+    this.didFocusListener.remove();
   }
 
   render() {
+    // console.log('props=>', this.props);
     return (
       <View style={styles.container}>
-        {this.state.data == null || this.state.isLoading ? (
+        {this.props.data == null || this.props.isLoading ? (
           <Loading />
         ) : (
           <FlatList
-            data={this.state.data}
+            data={this.props.data}
             renderItem={renderCategoryItem}
             keyExtractor={item => item.id}
           />
@@ -79,8 +84,8 @@ export class NewScreen extends React.Component {
 }
 export default connect(
   state => ({
-    data: state.data,
-    isLoading: state.isLoading,
+    data: state.dataReducer.data,
+    isLoading: state.dataReducer.isLoading,
   }),
   dispatch => ({
     getNewData: () => dispatch({type: GET_NEW_DATA}),
