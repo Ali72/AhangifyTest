@@ -57,6 +57,11 @@ const CategoryItem = ({item, onPress}) => (
 const renderCategoryItem = ({item}) => {
   return <CategoryItem item={item} onPress={() => {}} />;
 };
+// type Props = {
+//   // data: Object,
+//   isLoading: Boolean,
+//   // navigation: Object,
+// };
 
 class BrowseScreen extends React.Component {
   constructor(props) {

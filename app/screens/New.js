@@ -58,7 +58,6 @@ export class NewScreen extends React.Component {
       console.log('did focus');
       this.props.getNewData();
     });
-    // this.props.getBrowseData();
   }
   componentWillUnmount() {
     console.log('remove focus', this.didFocusListener);
