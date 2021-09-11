@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {connect} from 'react-redux';
 import {
@@ -57,13 +58,16 @@ const CategoryItem = ({item, onPress}) => (
 const renderCategoryItem = ({item}) => {
   return <CategoryItem item={item} onPress={() => {}} />;
 };
-// type Props = {
-//   // data: Object,
-//   isLoading: Boolean,
-//   // navigation: Object,
-// };
 
-class BrowseScreen extends React.Component {
+type Props = {
+  data: Object,
+  getBrowseData: () => void,
+  isLoading: Boolean,
+  navigation: Object,
+};
+
+class Browse extends React.Component<Props> {
+  didFocusListener;
   constructor(props) {
     super(props);
   }
@@ -82,7 +86,7 @@ class BrowseScreen extends React.Component {
   }
 
   render() {
-    // console.log('props=>', this.props);
+    console.log('props=>', this.props);
     const data = {...this.props.data};
     const {isLoading} = this.props;
     return (
@@ -101,23 +105,17 @@ class BrowseScreen extends React.Component {
   }
 }
 
-// const mapState = state => state.data;
-// const mapDispatch = {getBrowseData};
-// const connection = connect(mapState, mapDispatch);
-// export default connection(BrowseScreen);
-
-export default connect(
+const reduxConnection: React.Component<Props> = connect(
   state => ({
     data: state.dataReducer.data,
     isLoading: state.dataReducer.isLoading,
   }),
   dispatch => ({
     getBrowseData: () => dispatch({type: GET_BROWSE_DATA}),
-    // getBrowseData: bindActionCreators(getBrowseData, () => {
-    //   return {type: GET_BROWSE_DATA};
-    // }),
   }),
-)(BrowseScreen);
+)(Browse);
+
+export default reduxConnection;
 
 const styles = StyleSheet.create({
   container: {

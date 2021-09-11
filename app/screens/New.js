@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {
   Text,
@@ -28,12 +29,18 @@ const CategoryItem = ({item, onPress}) => (
             ...styles.vStack,
             ...styles.item,
           }}>
-          <Text style={{fontWeight: '400', fontSize: 18}}>
+          <Text style={{fontWeight: '400', fontSize: 18, color: 'black'}}>
             {item.performerFa}
           </Text>
           <View style={{...styles.hStack, alignItems: 'center', marginTop: 8}}>
             <FontAwesome5 name={'heart'} color={'red'} size={20} solid />
-            <Text style={{paddingStart: 8, fontWeight: '400', fontSize: 14}}>
+            <Text
+              style={{
+                paddingStart: 8,
+                fontWeight: '400',
+                fontSize: 14,
+                color: 'black',
+              }}>
               {item.like_count}
             </Text>
           </View>
@@ -47,7 +54,14 @@ const CategoryItem = ({item, onPress}) => (
 const renderCategoryItem = ({item}) => {
   return <CategoryItem item={item} onPress={() => {}} />;
 };
-export class NewScreen extends React.Component {
+type Props = {
+  data: Object,
+  getNewData: () => void,
+  isLoading: Boolean,
+  navigation: Object,
+};
+class NewScreen extends React.Component<Props> {
+  didFocusListener;
   constructor(props) {
     super(props);
   }
@@ -83,7 +97,7 @@ export class NewScreen extends React.Component {
     );
   }
 }
-export default connect(
+const reduxConnection: React.Component<Props> = connect(
   state => ({
     data: state.dataReducer.data,
     isLoading: state.dataReducer.isLoading,
@@ -95,6 +109,7 @@ export default connect(
     // }),
   }),
 )(NewScreen);
+export default reduxConnection;
 
 const styles = StyleSheet.create({
   container: {
@@ -115,7 +130,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   item: {
-    color: 'black',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
